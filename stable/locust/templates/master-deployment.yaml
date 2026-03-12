@@ -178,7 +178,12 @@ spec:
         startupProbe:
           {{- toYaml .Values.master.startupProbe | nindent 12 }}
         {{- end }}
+        {{- if.Values.master.lifecycle }}
+        lifecycle:
+          {{- toYaml .Values.master.startupProbe | nindent 12 }}
+        {{- end }}
       restartPolicy: {{ .Values.master.restartPolicy }}
+      terminationGracePeriodSeconds: {{ .Values.master.terminationGracePeriodSeconds }}
       volumes:
         {{- if .Values.loadtest.locust_lib_configmap }}
         - name: lib
